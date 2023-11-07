@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -46,6 +47,72 @@ public class Main {
         }
 
         printFigures(sizeGeneral);
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the result of the game: ");
+        String result = scanner.nextLine();
+
+        result = result.replace("0", "O");
+        result = result.toUpperCase();
+        Character[][] characters = new Character[3][3];
+        int counterList = 0;
+        for (int i = 0; i < characters.length; i++) {
+            for (int j = 0; j < characters.length; j++) {
+                characters[i][j] = result.charAt(counterList);
+                counterList++;
+            }
+        }
+
+        for (int i = 0; i < characters.length; i++) {
+            for (int j = 0; j < characters.length; j++) {
+                System.out.print(characters[i][j]);
+            }
+            System.out.println();
+        }
+
+        if ((characters[0][0].equals(characters[1][0]) && characters[1][0].equals(characters[2][0])) || ((characters[0][0].equals(characters[0][1]) && characters[0][1].equals(characters[0][2])))) {
+            System.out.println("The winner is: " + characters[0][0]);
+        } else if ((characters[0][1].equals(characters[1][1]) && characters[1][1].equals(characters[2][1])) || ((characters[1][0].equals(characters[1][1]) && characters[1][1].equals(characters[1][2])))) {
+            System.out.println("The winner is: " + characters[1][1]);
+        } else if ((characters[0][2].equals(characters[1][2]) && characters[1][2].equals(characters[2][2])) || ((characters[2][0].equals(characters[2][1]) && characters[2][1].equals(characters[2][2])))) {
+            System.out.println("The winner is: " + characters[2][2]);
+        } else if ((characters[0][0].equals(characters[1][1]) && characters[1][1].equals(characters[2][2])) || ((characters[0][2].equals(characters[1][1]) && characters[1][1].equals(characters[2][0])))) {
+            System.out.println("The winner is: " + characters[1][1]);
+        } else {
+            System.out.println("It is a draw");
+        }
+
+        Scanner scanner1 = new Scanner(System.in);
+        System.out.println("Enter your SMS: ");
+        String sms = scanner1.nextLine();
+        System.out.println("The length of your sms is: " + sms.length());
+        sms = sms.trim();
+        System.out.print(sms.charAt(0));
+        int counterSms = 1;
+        for (int i = 1; i < sms.length(); i++) {
+            String subBefore = String.valueOf(sms.charAt(i - 1));
+            String sub = String.valueOf(sms.charAt(i));
+            if (subBefore.equals(" ")) {
+                sub = sub.toUpperCase();
+                System.out.print(sub);
+                counterSms++;
+                continue;
+            } else if (sms.charAt(i) == ' ') {
+                continue;
+            } else {
+                System.out.print(sms.charAt(i));
+                counterSms++;
+            }
+        }
+
+        System.out.println();
+        System.out.println("The length of the message now: " + counterSms);
+
+        int price = counterSms / 160;
+        price += 1;
+        System.out.println(Float.valueOf(price * 0.25f));
+
+
     }
 
     public static void printFigures(int size) {
