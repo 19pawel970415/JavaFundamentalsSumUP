@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -112,6 +111,43 @@ public class Main {
         price += 1;
         System.out.println(Float.valueOf(price * 0.25f));
 
+        String peselG;
+        int peselLength;
+        do {
+            Scanner scanner2 = new Scanner(System.in);
+            System.out.println("Enter your pesel: ");
+            String pesel = scanner2.nextLine();
+            peselG = pesel;
+            peselLength = pesel.length();
+
+            if (peselLength != 11) {
+                System.out.println("Wrong pesel");
+            }
+        } while (peselLength != 11);
+
+        checkPesel(peselG);
+
+        Stack stack = new Stack(5);
+        System.out.println(stack.isEmpty());
+        stack.pop();
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        stack.push(4);
+        stack.push(5);
+        stack.push(6);
+        System.out.println(stack.isFull());
+        System.out.println(stack.toString());
+
+        IntArray intArray = new IntArray();
+        intArray.add(1);
+        intArray.add(2,1);
+        System.out.println(intArray.get(0));
+        System.out.println(intArray.toString());
+        intArray.swap(0,1);
+        System.out.println(intArray.toString());
+        intArray.remove(0);
+        System.out.println(intArray.toString());
 
     }
 
@@ -250,6 +286,45 @@ public class Main {
                 }
                 System.out.println();
             }
+        }
+    }
+
+    public static void checkPesel(String yourPesel) {
+
+        Integer[] peselElems = new Integer[11];
+        for (int i = 0; i < peselElems.length; i++) {
+            peselElems[i] = Integer.parseInt(String.valueOf(yourPesel.charAt(i)));
+        }
+
+        for (int i = 0; i < peselElems.length; i++) {
+            switch (i) {
+                case 1:
+                case 5:
+                case 9:
+                    peselElems[i] *= 3;
+                    break;
+                case 2:
+                case 6:
+                    peselElems[i] *= 7;
+                    break;
+                case 3:
+                case 7:
+                    peselElems[i] *= 9;
+                    break;
+                default:
+                    peselElems[i] *= 1;
+                    break;
+            }
+        }
+
+        int sum = 0;
+        for (Integer peselElem : peselElems) {
+            sum += peselElem;
+        }
+        if (sum % 10 == 0) {
+            System.out.println("Your pesel is correct");
+        } else {
+            System.out.println("Your pesel is not correct");
         }
     }
 }
@@ -639,38 +714,21 @@ public class IntArray {
 }
 Funkcjonalności:
 
-IntArray() - konstruktor, powinien utworzyć inicjalną tablicę o początkowej, domyślnej wielkości
+IntArray() - konstruktor, powinien utworzyć inicjalną listę
 
-void add(Integer value) - dodaje element na kolejną pozycję; w razie potrzeby powiększa tablicę
+void add(Integer value) - dodaje element na kolejną pozycję;
 
-tworzy nową, większą
-
-przepisuje obecne wartości
-
-dodaje nowy element
-
-void add(Integer value, int idx) - dodaje element na wskazaną pozycję; w razie potrzeby wykonuje to powyższa metoda
+void add(Integer value, int idx) - dodaje element na wskazaną pozycję
 
 Integer get(int idx) - zwraca element na pozycji idx; jeśli go tam nie ma, zwraca null
 
 void remove(int idx) - usuwa element na pozycji idx
 
-void swap(int from, int to) - zamienia miejscami elementy na pozycjach from oraz to; w razie potrzeby powiększa tablicę
+void swap(int from, int to) - zamienia miejscami elementy na pozycjach from oraz to;
 
-String toString() - wyświetla całą tablicę
-
-Dodatkowe funkcjonalności:
-
-niech każda metoda wyświetla dodatkowe komunikaty, np.
-
-
-Zwracam element 5 z pozycji 78
-Zamieniam miejscami element 23 z pozycji 3 na element 55 z pozycji 14
-Wstawiam element 98 na pozycję 56 (powiększam tablicę)
-niech metoda toString() wyświetla dodatkowe informacje o liczbie elementów oraz wielkości tablicy
+String toString() - wyświetla całą listę
 
 Dana jest klasa Account i AccountApplication
-
 
 public class Account {
     private String name;
